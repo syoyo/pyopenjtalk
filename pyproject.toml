@@ -3,7 +3,7 @@ requires = [
     "wheel",
     "setuptools<v60.0",
     "cython>=0.21.0",
-    "numpy<v1.20.0",
+    "oldest-supported-numpy",
 ]
 
 [tool.pysen]
