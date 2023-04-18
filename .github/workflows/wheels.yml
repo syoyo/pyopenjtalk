@@ -25,8 +25,9 @@ jobs:
         # Disable building PyPy wheels on all platforms
         env:
             CIBW_ARCHS_MACOS: x86_64 universal2 arm64
+            CIBW_SKIP: pp*
+        # aarch64 build takes too time, so disabled it.
         #    CIBW_ARCHS_LINUX: auto aarch64
-        #    CIBW_SKIP: pp*
 
       - uses: actions/upload-artifact@v3
         with:
