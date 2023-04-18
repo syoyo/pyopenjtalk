@@ -262,7 +262,8 @@ with open("README.md", "r", encoding="utf8") as fd:
     long_description = fd.read()
 
 setup(
-    name="pyopenjtalk",
+    # add _prebuilt prefix to avoid existing `pyopenjtalk` pypi project name.
+    name="pyopenjtalk_prebuilt",
     version=version,
     description="A python wrapper for OpenJTalk",
     long_description=long_description,
