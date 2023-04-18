@@ -2,7 +2,7 @@ name: Build and upload to PyPI
 
 # Build on every branch push, tag push, and pull request change:
 on: [push, pull_request]
-  
+
 jobs:
 
   build_wheels:
@@ -24,9 +24,9 @@ jobs:
         #   CIBW_SOME_OPTION: value
         # Disable building PyPy wheels on all platforms
         env:
-            CIBW_ARCHS_LINUX: auto aarch64
             CIBW_ARCHS_MACOS: x86_64 universal2 arm64
-            CIBW_SKIP: pp*
+        #    CIBW_ARCHS_LINUX: auto aarch64
+        #    CIBW_SKIP: pp*
 
       - uses: actions/upload-artifact@v3
         with:
