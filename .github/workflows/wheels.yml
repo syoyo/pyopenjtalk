@@ -49,22 +49,21 @@ jobs:
       with:
         path: dist/*.tar.gz
 
-# TODO: pypi upload
-#
-#  upload_all:
-#    needs: [build_wheels, make_sdist]
-#    runs-on: ubuntu-latest
-#    # # upload to PyPI on every tag starting with 'v'
-#    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-#    # alternatively, to publish when a GitHub Release is created, use the following rule:
-#    # if: github.event_name == 'push' && github.event.action == 'published'
-#    steps:
-#    - uses: actions/download-artifact@v3
-#      with:
-#        name: artifact
-#        path: dist
-#
-#    - uses: pypa/gh-action-pypi-publish@v1.5.0
-#      with:
-#        user: __token__
-#        password: ${{ secrets.PYPI_API_TOKEN }}
+  upload_all:
+    # bdist only
+    needs: [build_wheels]
+    runs-on: ubuntu-latest
+    # # upload to PyPI on every tag starting with 'v'
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    # alternatively, to publish when a GitHub Release is created, use the following rule:
+    # if: github.event_name == 'push' && github.event.action == 'published'
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: artifact
+        path: dist
+
+    - uses: pypa/gh-action-pypi-publish@v1.5.0
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
