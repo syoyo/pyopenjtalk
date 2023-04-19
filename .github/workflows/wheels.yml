@@ -24,6 +24,7 @@ jobs:
         #   CIBW_SOME_OPTION: value
         # Disable building PyPy wheels on all platforms
         env:
+            CIBW_ENVIRONMENT: PYOPENJTALK_BUILD_VERSION=0.3.0
             CIBW_ARCHS_MACOS: x86_64 universal2 arm64
             CIBW_SKIP: pp*
         # aarch64 build takes too time, so disabled it.
@@ -44,6 +45,8 @@ jobs:
 
     - name: Build SDist
       run: pipx run build --sdist
+      env:
+        PYOPENJTALK_BUILD_VERSION: 0.3.0
 
     - uses: actions/upload-artifact@v3
       with:
