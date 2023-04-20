@@ -1,0 +1,33 @@
+build_and_store_wheels: &BUILD_AND_STORE_WHEELS
+  install_cibuildwheel_script:
+    - python -m pip install cibuildwheel==2.12.3
+  run_cibuildwheel_script:
+    - cibuildwheel
+  wheels_artifacts:
+    path: "wheelhouse/*"
+
+  # Upload only for tagged commit
+  only_if: $CIRRUS_TAG != ''
+  publish_script:
+    - python -m pip install twine
+    - python -m twine upload --repository-url https://upload.pypi.org/legacy/ --username __token__ wheelhouse/*.whl
+
+
+linux_aarch64_task:
+  name: Build Linux aarch64 wheels.
+  compute_engine_instance:
+    image_project: cirrus-images
+    image: family/docker-builder-arm64
+    architecture: arm64
+    platform: linux
+    cpu: 4
+    memory: 4G
+  environment:
+    CIRRUS_CLONE_DEPTH: 1
+    CIRRUS_CLONE_SUBMODULES: true
+    CIBW_ENVIRONMENT: PYOPENJTALK_BUILD_VERSION=0.3.0
+    TWINE_PASSWORD: ENCRYPTED[7932c3caec861221af511c9825348f755e5820d6d80dd333373c4923b6de277f1c2ec9d10c8a8a82b0b1fc5edc0f7593]
+
+  install_pre_requirements_script:
+    - apt install -y python3-venv python-is-python3
+  <<: *BUILD_AND_STORE_WHEELS
