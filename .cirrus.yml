@@ -23,6 +23,7 @@ linux_aarch64_task:
     cpu: 4
     memory: 4G
   environment:
+    CIBW_ENVIRONMENT: PYOPENJTALK_BUILD_VERSION=0.2.0
     TWINE_PASSWORD: ENCRYPTED[7932c3caec861221af511c9825348f755e5820d6d80dd333373c4923b6de277f1c2ec9d10c8a8a82b0b1fc5edc0f7593]
 
   install_pre_requirements_script:
